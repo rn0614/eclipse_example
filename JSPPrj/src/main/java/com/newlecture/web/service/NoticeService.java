@@ -23,7 +23,34 @@ public class NoticeService {
 	}
 	
 	public int insertNotice(Notice notice){
-		return 0;
+		int result=0;
+		
+		String sql ="INSERT INTO NOTICE(TITLE, CONTENT, WRITER_ID ,PUB) VALUES(?,?,?,?)";
+		
+		String url ="jdbc:oracle:thin:@localhost:1521/xepdb1";
+		
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url,"newlec","1234");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, notice.getTitle());
+			st.setString(2, notice.getContent());
+			st.setString(3, notice.getWriterId());
+			st.setBoolean(4,notice.getPub());
+			
+			result = st.executeUpdate();
+
+		    st.close();
+		    con.close();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 	
 	public int deleteNotice(int id){
@@ -84,9 +111,10 @@ public class NoticeService {
 				String files = rs.getString("FILES");
 				//String content = rs.getString("CONTENT");
 				int cmtCount = rs.getInt("CMT_COUNT");
+				boolean pub = rs.getBoolean("PUB");
 				
 				NoticeView notice = new NoticeView(
-						id,title,regdate,writerId,hit,files,/*content,*/cmtCount
+						id,title,regdate,writerId,hit,files,/*content,*/pub,cmtCount
 						);
 				
 				notices.add(notice);
@@ -167,9 +195,10 @@ public class NoticeService {
 				String hit = rs.getString("HIT");
 				String files = rs.getString("FILES");
 				String content = rs.getString("CONTENT");
+				boolean pub = rs.getBoolean("PUB");
 				
 				notice = new Notice(
-						nid,title,regdate,writerId,hit,files,content
+						nid,title,regdate,writerId,hit,files,content,pub
 						);
 				}
 
@@ -214,9 +243,10 @@ public class NoticeService {
 				String hit = rs.getString("HIT");
 				String files = rs.getString("FILES");
 				String content = rs.getString("CONTENT");
+				boolean pub = rs.getBoolean("PUB");
 				
 				notice = new Notice(
-						nid,title,regdate,writerId,hit,files,content
+						nid,title,regdate,writerId,hit,files,content,pub
 						);
 				}
 
@@ -257,9 +287,10 @@ public class NoticeService {
 				String hit = rs.getString("HIT");
 				String files = rs.getString("FILES");
 				String content = rs.getString("CONTENT");
+				boolean pub = rs.getBoolean("PUB");
 				
 				notice = new Notice(
-						nid,title,regdate,writerId,hit,files,content
+						nid,title,regdate,writerId,hit,files,content,pub
 						);
 				}
 
@@ -273,5 +304,40 @@ public class NoticeService {
 		}
 		
 		return notice;
+	}
+
+	public int deleteNoticeAll(int[] ids) {
+		int result=0;
+		
+		String params="";
+		for(int i=0;i<ids.length ;i++) {
+			params+= ids[i];
+			if(i<ids.length-1) {
+				params+=',';
+			}
+		}
+		
+		String sql ="DELETE NOTICE WHERE ID IN ("+params+")";
+		
+		String url ="jdbc:oracle:thin:@localhost:1521/xepdb1";
+		
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url,"newlec","1234");
+			Statement st = con.createStatement();
+			
+			result = st.executeUpdate(sql);
+
+		    st.close();
+		    con.close();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 }
