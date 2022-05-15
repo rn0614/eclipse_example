@@ -15,7 +15,7 @@ import com.newlecture.web.service.NoticeService;
 
 
 @WebServlet("/notice/list")
-public class NoticeListController extends HttpServlet{
+public class ListController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//list?f=title&q=a

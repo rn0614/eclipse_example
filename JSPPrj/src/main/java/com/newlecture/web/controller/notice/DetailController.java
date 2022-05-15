@@ -19,7 +19,7 @@ import com.newlecture.web.entity.Notice;
 import com.newlecture.web.service.NoticeService;
 
 @WebServlet("/notice/detail")
-public class NoticeDetailController extends HttpServlet{
+public class DetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 사용자의 입력과 출력단만을 관리하는 Controller
