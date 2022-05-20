@@ -13,12 +13,12 @@ import javax.servlet.http.Part;
 import com.newlecture.web.entity.Notice;
 import com.newlecture.web.service.NoticeService;
 // 저장위치, 저장 사이즈 , 한개당 용량제한, 전체 용량제한
-@MultipartConfig(
+/*@MultipartConfig(
 	location="/tmp",
 	fileSizeThreshold=1024*1024,
 	maxFileSize=1024*1024*50,
 	maxRequestSize=1024*1024*50*5
-)
+)*/
 
 
 @WebServlet("/admin/board/notice/reg")
@@ -35,13 +35,12 @@ public class RegController extends HttpServlet{
 		String content= request.getParameter("content");
 		String isOpen= request.getParameter("open");
 		
-		Part filePart = request.getPart("file");
-		filePart.getInputStream();
-		
-		// 물리적 경로 추출
-		String realPath=request.getServletContext().getRealPath(isOpen);
-		System.out.println(realPath);
-		
+		/*
+		 * Part filePart = request.getPart("file"); filePart.getInputStream();
+		 * 
+		 * // 물리적 경로 추출 String realPath=request.getServletContext().getRealPath(isOpen);
+		 * System.out.println(realPath);
+		 */
 		
 		boolean pub = false;
 		if(isOpen != null)
