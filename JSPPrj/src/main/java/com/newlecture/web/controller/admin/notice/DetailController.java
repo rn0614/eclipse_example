@@ -28,7 +28,7 @@ public class DetailController extends HttpServlet{
 		NoticeService service = new NoticeService();
 		Notice notice = service.getNotice(id);
 		request.setAttribute("n", notice);
-		
+		 
 		 
 		// redirect (페이지를 아예 이동하는 경우)
 		// forward (페이지 내에서 자료를 처리)

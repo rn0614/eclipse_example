@@ -35,6 +35,7 @@ public class RegController extends HttpServlet{
 		String content= request.getParameter("content");
 		String isOpen= request.getParameter("open");
 		
+		
 		/*
 		 * Part filePart = request.getPart("file"); filePart.getInputStream();
 		 * 
